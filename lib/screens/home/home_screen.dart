@@ -28,36 +28,30 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    print('🏠 [HomeScreen] initState() called');
     SocketService().connect();
     _initialFetch();
   }
 
   @override
   void dispose() {
-    print('🏠 [HomeScreen] dispose() called');
     SocketService().disconnect();
     super.dispose();
   }
 
   void _initialFetch() {
-    print('🏠 [HomeScreen] _initialFetch() called, _initialLoadDone: $_initialLoadDone');
     if (!_initialLoadDone) {
       _initialLoadDone = true;
       Future.microtask(() {
-        print('🏠 [HomeScreen] Calling fetchLists() from _initialFetch');
         ref.read(listsProvider.notifier).fetchLists();
       });
     }
   }
 
   Future<void> _refreshLists() async {
-    print('🏠 [HomeScreen] _refreshLists() called');
     await ref.read(listsProvider.notifier).fetchLists();
   }
 
   void _showCreateListDialog() async {
-    print('🏠 [HomeScreen] _showCreateListDialog() called');
 
     final newList = await showDialog<GroceryListModel?>(
       context: context,
@@ -65,10 +59,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       builder: (context) => const CreateListDialog(),
     );
 
-    print('🏠 [HomeScreen] Dialog closed, newList: ${newList?.id}');
 
     if (newList != null && mounted) {
-      print('🏠 [HomeScreen] Navigating to ListDetailScreen');
 
       await Navigator.of(context).push(
         MaterialPageRoute(
@@ -76,22 +68,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
       );
 
-      print('🏠 [HomeScreen] Returned from ListDetailScreen, calling _refreshLists()');
       await _refreshLists();
     } else {
-      print('🏠 [HomeScreen] newList is null or not mounted, not navigating');
     }
   }
 
   void _showJoinListDialog() async {
-    print('🏠 [HomeScreen] _showJoinListDialog() called');
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => const JoinListDialog(),
     );
 
     if (result == true) {
-      print('🏠 [HomeScreen] Join successful, refreshing lists');
       await _refreshLists();
     }
   }
@@ -161,13 +149,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   void _navigateToList(String listId) async {
-    print('🏠 [HomeScreen] _navigateToList() called with listId: $listId');
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => ListDetailScreen(listId: listId),
       ),
     );
-    print('🏠 [HomeScreen] Returned from list detail, calling _refreshLists()');
     await _refreshLists();
   }
 
@@ -176,7 +162,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final authState = ref.watch(authProvider);
     final listsState = ref.watch(listsProvider);
 
-    print('🏠 [HomeScreen] build() called, lists count: ${listsState.lists.length}');
 
     return Scaffold(
       backgroundColor: AppColors.background,

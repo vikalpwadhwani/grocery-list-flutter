@@ -12,7 +12,6 @@ class StorageService {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  // Token
   static Future<void> saveToken(String token) async {
     await _prefs?.setString(_tokenKey, token);
   }
@@ -25,7 +24,6 @@ class StorageService {
     await _prefs?.remove(_tokenKey);
   }
 
-  // User Info
   static Future<void> saveUserInfo({
     required String id,
     required String name,
@@ -40,12 +38,10 @@ class StorageService {
   static String? getUserName() => _prefs?.getString(_userNameKey);
   static String? getUserEmail() => _prefs?.getString(_userEmailKey);
 
-  // Clear All
   static Future<void> clearAll() async {
     await _prefs?.clear();
   }
 
-  // Check if logged in
   static bool isLoggedIn() {
     return getToken() != null;
   }

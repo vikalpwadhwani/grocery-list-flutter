@@ -98,7 +98,6 @@ class GroceryListModel {
     );
   }
 
-  // Progress percentage
   double get progress {
     if (itemCount == null || itemCount == 0) return 0;
     return (checkedCount ?? 0) / itemCount!;

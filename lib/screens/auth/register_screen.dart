@@ -66,12 +66,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   children: [
                     SizedBox(height: Responsive.value(context, mobile: 20, desktop: 40)),
                     
-                    // Logo
                     _buildLogo(),
                     
                     SizedBox(height: Responsive.value(context, mobile: 32, desktop: 48)),
                     
-                    // Title
                     Text(
                       'Create Account',
                       style: TextStyle(
@@ -93,7 +91,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     
                     const SizedBox(height: 32),
                     
-                    // Error message
                     if (authState.error != null) ...[
                       Container(
                         padding: const EdgeInsets.all(12),
@@ -117,7 +114,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       const SizedBox(height: 16),
                     ],
                     
-                    // Name field
                     CustomTextField(
                       label: 'Full Name',
                       hint: 'Enter your name',
@@ -136,7 +132,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     
                     const SizedBox(height: 20),
                     
-                    // Email field
                     CustomTextField(
                       label: 'Email',
                       hint: 'Enter your email',
@@ -156,7 +151,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     
                     const SizedBox(height: 20),
                     
-                    // Password field
                     CustomTextField(
                       label: 'Password',
                       hint: 'Create a password',
@@ -176,7 +170,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     
                     const SizedBox(height: 20),
                     
-                    // Confirm Password field
                     CustomTextField(
                       label: 'Confirm Password',
                       hint: 'Confirm your password',
@@ -198,7 +191,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     
                     const SizedBox(height: 32),
                     
-                    // Register button
                     CustomButton(
                       text: 'Create Account',
                       onPressed: _register,
@@ -207,7 +199,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     
                     const SizedBox(height: 24),
                     
-                    // Login link
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

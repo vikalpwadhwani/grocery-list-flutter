@@ -23,26 +23,21 @@ class SocketService {
     _socket!.connect();
 
     _socket!.onConnect((_) {
-      print('🔌 Socket connected: ${_socket!.id}');
     });
 
     _socket!.onDisconnect((_) {
-      print('🔌 Socket disconnected');
     });
 
     _socket!.onConnectError((error) {
-      print('❌ Socket connection error: $error');
     });
   }
 
   void joinList(String listId) {
     _socket?.emit('join-list', listId);
-    print('👤 Joined list room: $listId');
   }
 
   void leaveList(String listId) {
     _socket?.emit('leave-list', listId);
-    print('👤 Left list room: $listId');
   }
 
   void onItemAdded(Function(dynamic) callback) {

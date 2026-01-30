@@ -45,10 +45,8 @@ class GroceryListCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header row
                 Row(
                   children: [
-                    // Icon
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
@@ -63,7 +61,6 @@ class GroceryListCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     
-                    // Title and role
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +107,6 @@ class GroceryListCard extends StatelessWidget {
                       ),
                     ),
                     
-                    // Actions
                     PopupMenuButton<String>(
                       icon: Icon(
                         Icons.more_vert,
@@ -152,7 +148,6 @@ class GroceryListCard extends StatelessWidget {
                 
                 const SizedBox(height: 16),
                 
-                // Progress bar
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

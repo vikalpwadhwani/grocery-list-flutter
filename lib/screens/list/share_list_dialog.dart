@@ -36,7 +36,6 @@ class ShareListDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Header
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -74,7 +73,6 @@ class ShareListDialog extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            // Invite code
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
@@ -104,7 +102,6 @@ class ShareListDialog extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            // Buttons
             Row(
               children: [
                 Expanded(

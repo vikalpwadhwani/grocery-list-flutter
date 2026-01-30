@@ -14,11 +14,10 @@ class SocketService {
   IO.Socket? get socket => _socket;
   bool get isConnected => _isConnected;
 
-  /// Connect to socket server
   void connect() {
     if (_socket != null && _isConnected) {
       if (kDebugMode) {
-        print('🔌 Socket already connected');
+        print('Socket already connected');
       }
       return;
     }
@@ -40,106 +39,90 @@ class SocketService {
       _socket!.onConnect((_) {
         _isConnected = true;
         if (kDebugMode) {
-          print('🔌 Socket connected: ${_socket!.id}');
+          print('Socket connected: ${_socket!.id}');
         }
       });
 
       _socket!.onDisconnect((_) {
         _isConnected = false;
         if (kDebugMode) {
-          print('🔌 Socket disconnected');
+          print('Socket disconnected');
         }
       });
 
       _socket!.onConnectError((error) {
         _isConnected = false;
         if (kDebugMode) {
-          print('❌ Socket connection error: $error');
+          print(' Socket connection error: $error');
         }
       });
 
       _socket!.onError((error) {
         if (kDebugMode) {
-          print('❌ Socket error: $error');
+          print(' Socket error: $error');
         }
       });
 
       _socket!.onReconnect((_) {
         _isConnected = true;
         if (kDebugMode) {
-          print('🔄 Socket reconnected');
+          print(' Socket reconnected');
         }
       });
 
     } catch (e) {
       if (kDebugMode) {
-        print('❌ Socket init error: $e');
+        print(' Socket init error: $e');
       }
     }
   }
 
-  /// Join a grocery list room
   void joinList(String listId) {
     if (_socket == null) {
       if (kDebugMode) {
-        print('⚠️ Cannot join list - socket not initialized');
+        print(' Cannot join list - socket not initialized');
       }
       return;
     }
     _socket!.emit('join-list', listId);
     if (kDebugMode) {
-      print('👤 Joined list room: $listId');
+      print(' Joined list room: $listId');
     }
   }
 
-  /// Leave a grocery list room
   void leaveList(String listId) {
     if (_socket == null) return;
     _socket!.emit('leave-list', listId);
     if (kDebugMode) {
-      print('👤 Left list room: $listId');
+      print('Left list room: $listId');
     }
   }
 
-  // ============================================
-  // EVENT LISTENERS
-  // ============================================
 
-  /// Listen for new items added
   void onItemAdded(Function(dynamic) callback) {
     _socket?.on('item-added', callback);
   }
 
-  /// Listen for item toggle events
   void onItemToggled(Function(dynamic) callback) {
     _socket?.on('item-toggled', callback);
   }
 
-  /// Listen for item updates
   void onItemUpdated(Function(dynamic) callback) {
     _socket?.on('item-updated', callback);
   }
 
-  /// Listen for item deletions
   void onItemDeleted(Function(dynamic) callback) {
     _socket?.on('item-deleted', callback);
   }
 
-  /// Listen for new members joining
   void onMemberJoined(Function(dynamic) callback) {
     _socket?.on('member-joined', callback);
   }
 
-  /// Listen for list deletions
   void onListDeleted(Function(dynamic) callback) {
     _socket?.on('list-deleted', callback);
   }
 
-  // ============================================
-  // CLEANUP METHODS
-  // ============================================
-
-  /// Remove all event listeners
   void removeListeners() {
     _socket?.off('item-added');
     _socket?.off('item-toggled');
@@ -148,16 +131,14 @@ class SocketService {
     _socket?.off('member-joined');
     _socket?.off('list-deleted');
     if (kDebugMode) {
-      print('🧹 Socket listeners removed');
+      print(' Socket listeners removed');
     }
   }
 
-  /// Remove specific listener
   void removeListener(String event) {
     _socket?.off(event);
   }
 
-  /// Disconnect from socket server
   void disconnect() {
     if (_socket != null) {
       removeListeners();
@@ -165,12 +146,11 @@ class SocketService {
       _socket = null;
       _isConnected = false;
       if (kDebugMode) {
-        print('🔌 Socket disconnected and cleaned up');
+        print(' Socket disconnected and cleaned up');
       }
     }
   }
 
-  /// Reconnect to socket server
   void reconnect() {
     disconnect();
     connect();

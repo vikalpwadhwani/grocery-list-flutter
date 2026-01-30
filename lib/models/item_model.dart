@@ -94,7 +94,6 @@ class ItemModel {
     );
   }
 
-  // Display string for quantity and unit
   String get quantityDisplay {
     if (unit != null && unit!.isNotEmpty) {
       return '$quantity $unit';

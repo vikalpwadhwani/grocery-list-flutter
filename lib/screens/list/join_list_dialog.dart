@@ -38,7 +38,6 @@ class _JoinListDialogState extends ConsumerState<JoinListDialog> {
       setState(() => _isLoading = false);
 
       if (success && mounted) {
-        // Close dialog and return true to trigger refresh
         Navigator.of(context).pop(true);
 
         ScaffoldMessenger.of(context).showSnackBar(
@@ -70,7 +69,6 @@ class _JoinListDialogState extends ConsumerState<JoinListDialog> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Header
               Row(
                 children: [
                   Container(
@@ -108,7 +106,6 @@ class _JoinListDialogState extends ConsumerState<JoinListDialog> {
 
               const SizedBox(height: 24),
 
-              // Error message
               if (_error != null) ...[
                 Container(
                   padding: const EdgeInsets.all(12),
@@ -132,7 +129,6 @@ class _JoinListDialogState extends ConsumerState<JoinListDialog> {
                 const SizedBox(height: 16),
               ],
 
-              // Code field
               CustomTextField(
                 label: 'Invite Code',
                 hint: 'e.g., ABC123',
@@ -153,7 +149,6 @@ class _JoinListDialogState extends ConsumerState<JoinListDialog> {
 
               const SizedBox(height: 24),
 
-              // Buttons
               Row(
                 children: [
                   Expanded(

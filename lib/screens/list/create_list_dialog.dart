@@ -23,35 +23,27 @@ class _CreateListDialogState extends ConsumerState<CreateListDialog> {
 
   @override
   void dispose() {
-    print('🔴 [CreateListDialog] dispose() called');
     _nameController.dispose();
     super.dispose();
   }
 
   Future<void> _createList() async {
-    print('🟡 [CreateListDialog] _createList() called');
-    print('🟡 [CreateListDialog] _isLoading: $_isLoading');
-    print('🟡 [CreateListDialog] _hasSubmitted: $_hasSubmitted');
 
     if (_isLoading) {
-      print('🔴 [CreateListDialog] Already loading, returning');
       return;
     }
 
     if (_hasSubmitted) {
-      print('🔴 [CreateListDialog] Already submitted, returning');
       return;
     }
 
     if (_formKey.currentState!.validate()) {
-      print('🟢 [CreateListDialog] Form validated');
 
       setState(() {
         _isLoading = true;
         _hasSubmitted = true;
       });
 
-      print('🟡 [CreateListDialog] Making API call...');
 
       try {
         final response = await _apiClient.post(
@@ -59,28 +51,21 @@ class _CreateListDialogState extends ConsumerState<CreateListDialog> {
           data: {'name': _nameController.text.trim()},
         );
 
-        print('🟢 [CreateListDialog] API response received');
-        print('🟢 [CreateListDialog] Success: ${response.data['success']}');
 
         if (!mounted) {
-          print('🔴 [CreateListDialog] Widget not mounted, returning');
           return;
         }
 
         if (response.data['success']) {
           final newList = GroceryListModel.fromJson(response.data['data']['list']);
-          print('🟢 [CreateListDialog] List created: ${newList.id}');
-          print('🟢 [CreateListDialog] Popping dialog with list');
           Navigator.of(context).pop(newList);
         } else {
-          print('🔴 [CreateListDialog] API returned failure');
           setState(() {
             _isLoading = false;
             _hasSubmitted = false;
           });
         }
       } catch (e) {
-        print('🔴 [CreateListDialog] Error: $e');
         if (!mounted) return;
         setState(() {
           _isLoading = false;
@@ -88,13 +73,11 @@ class _CreateListDialogState extends ConsumerState<CreateListDialog> {
         });
       }
     } else {
-      print('🔴 [CreateListDialog] Form validation failed');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    print('🔵 [CreateListDialog] build() called');
 
     return Dialog(
       shape: RoundedRectangleBorder(
@@ -156,8 +139,6 @@ class _CreateListDialogState extends ConsumerState<CreateListDialog> {
                       text: 'Cancel',
                       isOutlined: true,
                       onPressed: _isLoading ? null : () {
-                        print('🟡 [CreateListDialog] Cancel pressed');
-                        Navigator.of(context).pop(null);
                       },
                     ),
                   ),

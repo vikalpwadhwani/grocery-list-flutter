@@ -47,13 +47,11 @@ class ListDetailNotifier extends StateNotifier<ListDetailState> {
         super(ListDetailState());
 
   Future<void> fetchListDetails() async {
-    print('📦 [ItemsProvider] fetchListDetails() called');
     state = state.copyWith(isLoading: true, error: null);
     try {
       final response = await _apiClient.get('${ApiConstants.lists}/$listId');
       if (response.data['success']) {
         final list = GroceryListModel.fromJson(response.data['data']['list']);
-        print('📦 [ItemsProvider] Fetched ${list.items?.length ?? 0} items');
         state = state.copyWith(
           isLoading: false,
           list: list,
@@ -61,7 +59,6 @@ class ListDetailNotifier extends StateNotifier<ListDetailState> {
         );
       }
     } catch (e) {
-      print('📦 [ItemsProvider] Error: $e');
       state = state.copyWith(
         isLoading: false,
         error: e.toString(),
@@ -74,7 +71,6 @@ class ListDetailNotifier extends StateNotifier<ListDetailState> {
     int quantity = 1,
     String? unit,
   }) async {
-    print('📦 [ItemsProvider] addItem() called: $name');
 
     try {
       final response = await _apiClient.post(
@@ -88,23 +84,17 @@ class ListDetailNotifier extends StateNotifier<ListDetailState> {
 
       if (response.data['success']) {
         final newItem = ItemModel.fromJson(response.data['data']['item']);
-        print('📦 [ItemsProvider] Item created with ID: ${newItem.id}');
 
-        // Check if item already exists (might have been added by socket)
         final exists = state.items.any((i) => i.id == newItem.id);
-        print('📦 [ItemsProvider] Item already exists: $exists');
 
         if (!exists) {
-          // Add to recently added list
           final newRecentIds = [...state.recentlyAddedIds, newItem.id];
 
           state = state.copyWith(
             items: [newItem, ...state.items],
             recentlyAddedIds: newRecentIds,
           );
-          print('📦 [ItemsProvider] Item added to state. Total: ${state.items.length}');
 
-          // Remove from recently added after delay
           Future.delayed(const Duration(seconds: 5), () {
             if (mounted) {
               final updatedIds = state.recentlyAddedIds.where((id) => id != newItem.id).toList();
@@ -115,11 +105,9 @@ class ListDetailNotifier extends StateNotifier<ListDetailState> {
 
         return true;
       } else {
-        print('📦 [ItemsProvider] API returned failure');
         return false;
       }
     } catch (e) {
-      print('📦 [ItemsProvider] Error adding item: $e');
       return false;
     }
   }
@@ -224,29 +212,20 @@ class ListDetailNotifier extends StateNotifier<ListDetailState> {
     }
   }
 
-  // Socket: Item added by ANOTHER user
   void onItemAdded(ItemModel item) {
-    print('📦 [ItemsProvider] onItemAdded() from socket: ${item.id}');
 
-    // Skip if we recently added this item
     if (state.recentlyAddedIds.contains(item.id)) {
-      print('📦 [ItemsProvider] Skipping - we just added this');
       return;
     }
 
-    // Skip if item already exists
     if (state.items.any((i) => i.id == item.id)) {
-      print('📦 [ItemsProvider] Skipping - already exists');
       return;
     }
 
-    // Skip if this was added by current user
     if (item.addedBy == _currentUserId) {
-      print('📦 [ItemsProvider] Skipping - added by current user');
       return;
     }
 
-    print('📦 [ItemsProvider] Adding item from another user');
     state = state.copyWith(items: [item, ...state.items]);
   }
 

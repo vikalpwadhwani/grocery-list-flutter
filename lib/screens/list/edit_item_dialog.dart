@@ -77,7 +77,6 @@ class _EditItemDialogState extends ConsumerState<EditItemDialog> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Header
               Row(
                 children: [
                   Container(
@@ -105,7 +104,6 @@ class _EditItemDialogState extends ConsumerState<EditItemDialog> {
 
               const SizedBox(height: 24),
 
-              // Name field
               CustomTextField(
                 label: 'Item Name',
                 hint: 'e.g., Milk',
@@ -121,7 +119,6 @@ class _EditItemDialogState extends ConsumerState<EditItemDialog> {
 
               const SizedBox(height: 16),
 
-              // Quantity and Unit
               Row(
                 children: [
                   Expanded(
@@ -160,7 +157,6 @@ class _EditItemDialogState extends ConsumerState<EditItemDialog> {
 
               const SizedBox(height: 24),
 
-              // Buttons
               Row(
                 children: [
                   Expanded(

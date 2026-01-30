@@ -5,10 +5,8 @@ import 'core/utils/storage_service.dart';
 import 'screens/splash/splash_screen.dart';
 
 void main() async {
-  // Ensure Flutter bindings are initialized
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize storage service
   await StorageService.init();
 
   runApp(

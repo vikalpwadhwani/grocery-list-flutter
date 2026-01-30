@@ -20,7 +20,6 @@ class ApiClient {
       ),
     );
 
-    // Add interceptor for auth token
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
@@ -28,17 +27,12 @@ class ApiClient {
           if (token != null) {
             options.headers['Authorization'] = 'Bearer $token';
           }
-          print('📤 REQUEST: ${options.method} ${options.path}');
-          print('   Body: ${options.data}');
           return handler.next(options);
         },
         onResponse: (response, handler) {
-          print('📥 RESPONSE: ${response.statusCode} ${response.requestOptions.path}');
           return handler.next(response);
         },
         onError: (error, handler) {
-          print('❌ ERROR: ${error.message}');
-          print('   Response: ${error.response?.data}');
           return handler.next(error);
         },
       ),
@@ -47,27 +41,22 @@ class ApiClient {
 
   Dio get dio => _dio;
 
-  // GET request
   Future<Response> get(String path, {Map<String, dynamic>? queryParams}) async {
     return await _dio.get(path, queryParameters: queryParams);
   }
 
-  // POST request
   Future<Response> post(String path, {dynamic data}) async {
     return await _dio.post(path, data: data);
   }
 
-  // PUT request
   Future<Response> put(String path, {dynamic data}) async {
     return await _dio.put(path, data: data);
   }
 
-  // PATCH request
   Future<Response> patch(String path, {dynamic data}) async {
     return await _dio.patch(path, data: data);
   }
 
-  // DELETE request
   Future<Response> delete(String path) async {
     return await _dio.delete(path);
   }

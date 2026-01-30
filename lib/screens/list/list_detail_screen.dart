@@ -30,13 +30,10 @@ class _ListDetailScreenState extends ConsumerState<ListDetailScreen> {
   @override
   void initState() {
     super.initState();
-    // Fetch list details
     Future.microtask(() {
       ref.read(listDetailProvider(widget.listId).notifier).fetchListDetails();
     });
-    // Join socket room
     _socketService.joinList(widget.listId);
-    // Setup socket listeners
     _setupSocketListeners();
   }
 
@@ -181,7 +178,6 @@ class _ListDetailScreenState extends ConsumerState<ListDetailScreen> {
   }
 
   Widget _buildItemsList(ListDetailState state) {
-    // Separate checked and unchecked items
     final uncheckedItems = state.items.where((i) => !i.isChecked).toList();
     final checkedItems = state.items.where((i) => i.isChecked).toList();
 
@@ -191,25 +187,21 @@ class _ListDetailScreenState extends ConsumerState<ListDetailScreen> {
       child: ListView(
         padding: const EdgeInsets.symmetric(vertical: 16),
         children: [
-          // Progress bar
           _buildProgressBar(state),
           
           const SizedBox(height: 16),
           
-          // Unchecked items
           if (uncheckedItems.isNotEmpty) ...[
             _buildSectionHeader('To Buy', uncheckedItems.length),
             ...uncheckedItems.map((item) => _buildItemTile(item)),
           ],
           
-          // Checked items
           if (checkedItems.isNotEmpty) ...[
             const SizedBox(height: 16),
             _buildSectionHeader('Completed', checkedItems.length),
             ...checkedItems.map((item) => _buildItemTile(item)),
           ],
           
-          // Bottom padding for FAB
           const SizedBox(height: 80),
         ],
       ),

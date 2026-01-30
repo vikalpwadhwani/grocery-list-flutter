@@ -23,19 +23,16 @@ class ApiClient {
       ),
     );
 
-    // Add interceptors
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          // Add auth token to requests
           final token = StorageService.getToken();
           if (token != null && token.isNotEmpty) {
             options.headers['Authorization'] = 'Bearer $token';
           }
 
-          // Debug logging
           if (kDebugMode) {
-            print('📤 REQUEST: ${options.method} ${options.path}');
+            print('REQUEST: ${options.method} ${options.path}');
             if (options.data != null) {
               print('   Body: ${options.data}');
             }
@@ -44,17 +41,15 @@ class ApiClient {
           return handler.next(options);
         },
         onResponse: (response, handler) {
-          // Debug logging
           if (kDebugMode) {
-            print('📥 RESPONSE: ${response.statusCode} ${response.requestOptions.path}');
+            print('RESPONSE: ${response.statusCode} ${response.requestOptions.path}');
           }
 
           return handler.next(response);
         },
         onError: (error, handler) {
-          // Debug logging
           if (kDebugMode) {
-            print('❌ ERROR: ${error.message}');
+            print(' ERROR: ${error.message}');
             print('   Path: ${error.requestOptions.path}');
             if (error.response?.data != null) {
               print('   Response: ${error.response?.data}');
@@ -67,14 +62,9 @@ class ApiClient {
     );
   }
 
-  /// Get Dio instance
   Dio get dio => _dio;
 
-  // ============================================
-  // HTTP METHODS
-  // ============================================
 
-  /// GET request
   Future<Response> get(
       String path, {
         Map<String, dynamic>? queryParams,
@@ -91,7 +81,6 @@ class ApiClient {
     }
   }
 
-  /// POST request
   Future<Response> post(
       String path, {
         dynamic data,
@@ -110,7 +99,6 @@ class ApiClient {
     }
   }
 
-  /// PUT request
   Future<Response> put(
       String path, {
         dynamic data,
@@ -129,7 +117,6 @@ class ApiClient {
     }
   }
 
-  /// PATCH request
   Future<Response> patch(
       String path, {
         dynamic data,
@@ -148,7 +135,6 @@ class ApiClient {
     }
   }
 
-  /// DELETE request
   Future<Response> delete(
       String path, {
         dynamic data,
@@ -167,11 +153,6 @@ class ApiClient {
     }
   }
 
-  // ============================================
-  // ERROR HANDLING
-  // ============================================
-
-  /// Handle Dio errors and return appropriate exception
   Exception _handleError(DioException error) {
     String message;
 
@@ -203,7 +184,6 @@ class ApiClient {
     return ApiException(message, error.response?.statusCode);
   }
 
-  /// Extract error message from response
   String _getErrorFromResponse(Response? response) {
     if (response == null) {
       return 'No response from server.';
@@ -219,22 +199,16 @@ class ApiClient {
     }
   }
 
-  // ============================================
-  // UTILITY METHODS
-  // ============================================
 
-  /// Update base URL (useful for switching environments)
   void updateBaseUrl(String newBaseUrl) {
     _dio.options.baseUrl = newBaseUrl;
   }
 
-  /// Clear auth token from headers
   void clearAuthToken() {
     _dio.options.headers.remove('Authorization');
   }
 }
 
-/// Custom API Exception
 class ApiException implements Exception {
   final String message;
   final int? statusCode;

@@ -77,11 +77,9 @@ class GroceryItemTile extends StatelessWidget {
               padding: const EdgeInsets.all(12),
               child: Row(
                 children: [
-                  // Checkbox
                   _buildCheckbox(),
                   const SizedBox(width: 12),
                   
-                  // Item details
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,7 +123,6 @@ class GroceryItemTile extends StatelessWidget {
                     ),
                   ),
                   
-                  // Edit button
                   if (showActions && onEdit != null)
                     IconButton(
                       icon: Icon(

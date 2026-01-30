@@ -35,7 +35,6 @@ class Responsive {
   static double screenHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
 
-  // Responsive value based on screen size
   static T value<T>(
     BuildContext context, {
     required T mobile,
@@ -51,7 +50,6 @@ class Responsive {
     }
   }
 
-  // Responsive padding
   static EdgeInsets padding(BuildContext context) {
     return EdgeInsets.symmetric(
       horizontal: value<double>(
@@ -69,7 +67,6 @@ class Responsive {
     );
   }
 
-  // Content max width for centered layouts
   static double contentMaxWidth(BuildContext context) {
     return value<double>(
       context,
@@ -79,7 +76,6 @@ class Responsive {
     );
   }
 
-  // Grid columns for list views
   static int gridColumns(BuildContext context) {
     return value<int>(
       context,
@@ -90,7 +86,6 @@ class Responsive {
   }
 }
 
-// Responsive Widget Builder
 class ResponsiveBuilder extends StatelessWidget {
   final Widget mobile;
   final Widget? tablet;
@@ -115,7 +110,6 @@ class ResponsiveBuilder extends StatelessWidget {
   }
 }
 
-// Responsive Layout with optional sidebar
 class ResponsiveLayout extends StatelessWidget {
   final Widget body;
   final Widget? sidebar;
@@ -146,7 +140,6 @@ class ResponsiveLayout extends StatelessWidget {
   }
 }
 
-// Centered content wrapper for web/desktop
 class CenteredContent extends StatelessWidget {
   final Widget child;
   final double? maxWidth;

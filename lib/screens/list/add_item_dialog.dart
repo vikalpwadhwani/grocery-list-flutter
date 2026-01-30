@@ -34,11 +34,8 @@ class _AddItemDialogState extends ConsumerState<AddItemDialog> {
   }
 
   Future<void> _addItem() async {
-    print('🆕 [AddItemDialog] _addItem() called');
-    print('🆕 [AddItemDialog] _isLoading: $_isLoading, _hasSubmitted: $_hasSubmitted');
 
     if (_isLoading || _hasSubmitted) {
-      print('🆕 [AddItemDialog] Returning - already loading or submitted');
       return;
     }
 
@@ -48,7 +45,6 @@ class _AddItemDialogState extends ConsumerState<AddItemDialog> {
         _hasSubmitted = true;
       });
 
-      print('🆕 [AddItemDialog] Calling provider.addItem()');
 
       final success = await ref.read(listDetailProvider(widget.listId).notifier).addItem(
         name: _nameController.text.trim(),
@@ -56,7 +52,6 @@ class _AddItemDialogState extends ConsumerState<AddItemDialog> {
         unit: _unitController.text.trim().isEmpty ? null : _unitController.text.trim(),
       );
 
-      print('🆕 [AddItemDialog] addItem() returned: $success');
 
       if (!mounted) return;
 

@@ -17,8 +17,8 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _emailController = TextEditingController(text:'bunny@gmail.com');
+  final _passwordController = TextEditingController(text:'123456789');
 
   @override
   void dispose() {
@@ -60,13 +60,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SizedBox(height: Responsive.value(context, mobile: 40, desktop: 80)),
-                    
-                    // Logo
                     _buildLogo(),
-                    
                     SizedBox(height: Responsive.value(context, mobile: 40, desktop: 60)),
-                    
-                    // Title
                     Text(
                       'Welcome Back!',
                       style: TextStyle(
@@ -88,7 +83,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     
                     const SizedBox(height: 40),
                     
-                    // Error message
+
                     if (authState.error != null) ...[
                       Container(
                         padding: const EdgeInsets.all(12),
@@ -111,8 +106,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                       const SizedBox(height: 16),
                     ],
-                    
-                    // Email field
+
                     CustomTextField(
                       label: 'Email',
                       hint: 'Enter your email',
@@ -131,8 +125,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                     
                     const SizedBox(height: 20),
-                    
-                    // Password field
+
                     CustomTextField(
                       label: 'Password',
                       hint: 'Enter your password',
@@ -150,8 +143,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                     
                     const SizedBox(height: 32),
-                    
-                    // Login button
                     CustomButton(
                       text: 'Sign In',
                       onPressed: _login,
@@ -160,7 +151,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     
                     const SizedBox(height: 24),
                     
-                    // Register link
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

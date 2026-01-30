@@ -4,7 +4,6 @@ import '../core/constants/api_constants.dart';
 import '../core/utils/storage_service.dart';
 import '../models/user_model.dart';
 
-// Auth State
 class AuthState {
   final bool isLoading;
   final bool isAuthenticated;
@@ -33,13 +32,11 @@ class AuthState {
   }
 }
 
-// Auth Notifier
 class AuthNotifier extends StateNotifier<AuthState> {
   final ApiClient _apiClient;
 
   AuthNotifier(this._apiClient) : super(AuthState());
 
-  // Check if user is logged in
   Future<void> checkAuthStatus() async {
     final token = StorageService.getToken();
     if (token != null) {
@@ -65,7 +62,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
-  // Register
   Future<bool> register({
     required String name,
     required String email,
@@ -115,7 +111,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
-  // Login
   Future<bool> login({
     required String email,
     required String password,
@@ -163,13 +158,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
-  // Logout
   Future<void> logout() async {
     await StorageService.clearAll();
     state = AuthState();
   }
 
-  // Clear error
   void clearError() {
     state = state.copyWith(error: null);
   }
@@ -185,7 +178,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 }
 
-// Provider
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   return AuthNotifier(ApiClient());
 });
