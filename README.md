@@ -1,16 +1,33 @@
-# grocery_list_app
+#  Shared Grocery List - Flutter App
 
-A new Flutter project.
+A real-time collaborative grocery list app built with Flutter and Riverpod.
 
-## Getting Started
+##  Live Demo
 
-This project is a starting point for a Flutter application.
+The app connects to: `https://grocery-list-backend-adft.onrender.com`
 
-A few resources to get you started if this is your first Flutter project:
+##  Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- ✅ User Authentication (Register/Login)
+- ✅ Create Grocery Lists
+- ✅ Share Lists via Invite Code
+- ✅ Join Lists with Code
+- ✅ Add, Edit, Delete Items
+- ✅ Check/Uncheck Items
+- ✅ Real-time Sync (Socket.io)
+- ✅ Optimistic UI Updates
+- ✅ Responsive Design (Mobile, Tablet, Desktop, Web)
+- ✅ Pull to Refresh
+- ✅ Loading & Error States
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+##  Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| Flutter 3.x | UI Framework |
+| Riverpod | State Management |
+| Dio | HTTP Client |
+| Socket.io Client | Real-time Sync |
+| SharedPreferences | Local Storage |
+
+##  Project Structure
